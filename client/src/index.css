@@ -1,0 +1,21 @@
+@import "tailwindcss";
+@plugin "daisyui" {
+   themes: light --default;
+}
+.slider{
+   -webkit-appearance:none;
+   height:100%;
+   background: transparent;
+}
+.slider::-webkit-slider-thumb{
+   appearance:none;
+   width:30px;
+   height:30px;
+   background-image:url('assets/slider.svg');
+   background-position:center;
+   background-repeat:no-repeat;
+   background-size:cover;
+}
+.bg-layer{
+background-image:url('https://i.pinimg.com/1200x/ff/82/08/ff8208192e36b712cf3386f00797566d.jpg');
+}
