@@ -2,6 +2,7 @@ import 'dotenv/config'
 import cors from 'cors'
 import express from 'express'
 import connectDB from './configs/mongodb.js'
+import userRouter from './Routes/userroutes.js'
 
 const PORT = process.env.PORT||4000
 const app = express()
@@ -13,6 +14,7 @@ app.use(cors());//with cors we can connect user that is on different port to bac
 app.get('/',(req,res)=>
     res.send('this api is working')
 )
+app.use('/api/user',userRouter)
 app.listen(PORT,()=>{
     console.log( `server is running on port ${PORT}`)
 })
