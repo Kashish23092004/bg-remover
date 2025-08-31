@@ -30,7 +30,6 @@ const Result = () => {
       <button className='bg-amber-500 mr-80 p-4 px-5 rounded-2xl bg-gradient-to-r from-blue-600 to-pink-400 text-white active:translate-0.5'>Download image</button>
       </div>
       </div>
-      <Footer />
     </div>
   )
 }
