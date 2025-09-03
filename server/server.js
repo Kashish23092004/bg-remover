@@ -1,12 +1,19 @@
 import 'dotenv/config'
 import cors from 'cors'
 import express from 'express'
-import connectDB from './configs/mongodb.js'
-import userRouter from './Routes/userroutes.js'
+import userRouter from './Routes/userRoutes.js';
+import connectDB from './configs/mongodb.js';
 
 const app = express()
 const PORT = process.env.PORT || 4000
 
+console.log('Testing imports...');
+try {
+    const test = await import('./Routes/userRoutes.js');
+    console.log('userRoutes import successful');
+} catch (error) {
+    console.log('userRoutes import failed:', error.message);
+}
 // Connect to MongoDB
 connectDB().catch(console.error);
 
@@ -35,8 +42,7 @@ app.use('/api/user', userRouter);
 export default app;
 
 // Local development listener
-if (process.env.NODE_ENV !== 'production') {
-  app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`)
-  });
-}
+app.listen(PORT, '0.0.0.0', () => {
+  console.log(`Server is running on http://0.0.0.0:${PORT}`);
+  console.log(`Also accessible via http://localhost:${PORT}`);
+});
