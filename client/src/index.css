@@ -2,6 +2,8 @@
 @plugin "daisyui" {
    themes: light --default;
 }
+
+/* Responsive slider styles */
 .slider{
    -webkit-appearance:none;
    height:100%;
@@ -9,13 +11,60 @@
 }
 .slider::-webkit-slider-thumb{
    appearance:none;
-   width:30px;
-   height:30px;
+   width:20px;
+   height:20px;
    background-image:url('assets/slider.svg');
    background-position:center;
    background-repeat:no-repeat;
    background-size:cover;
+   cursor: pointer;
 }
+
+/* Responsive slider thumb for larger screens */
+@media (min-width: 640px) {
+  .slider::-webkit-slider-thumb{
+    width:25px;
+    height:25px;
+  }
+}
+
+@media (min-width: 768px) {
+  .slider::-webkit-slider-thumb{
+    width:30px;
+    height:30px;
+  }
+}
+
 .bg-layer{
 background-image:url('https://i.pinimg.com/1200x/ff/82/08/ff8208192e36b712cf3386f00797566d.jpg');
+background-size: cover;
+background-position: center;
+background-repeat: no-repeat;
+}
+
+/* Responsive utilities */
+.container {
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+@media (min-width: 640px) {
+  .container { max-width: 640px; }
+}
+
+@media (min-width: 768px) {
+  .container { max-width: 768px; }
+}
+
+@media (min-width: 1024px) {
+  .container { max-width: 1024px; }
+}
+
+@media (min-width: 1280px) {
+  .container { max-width: 1280px; }
+}
+
+@media (min-width: 1536px) {
+  .container { max-width: 1536px; }
 }

@@ -14,8 +14,8 @@ const Image = () => {
         Remove background with high <br /> Quality and accuracy
       </h1>
 
-      <div className="relative mt-8 sm:mt-10 w-[90vw] max-w-[280px] sm:w-[320px] mx-auto">
-        <div className="relative h-[320px] sm:h-[384px] w-full rounded-xl overflow-hidden">
+      <div className="relative mt-8 sm:mt-10 w-[90vw] max-w-[280px] sm:max-w-[320px] md:max-w-[400px] lg:max-w-[480px] mx-auto">
+        <div className="relative h-[280px] sm:h-[320px] md:h-[400px] lg:h-[480px] w-full rounded-xl overflow-hidden shadow-lg">
           <img
             src={imgbg}
             alt="Background"

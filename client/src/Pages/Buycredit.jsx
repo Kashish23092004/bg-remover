@@ -3,18 +3,20 @@ import Footer from '../Components/Footer'
 
 const Buycredit = () => {
   return (
-    <div className="min-h-screen flex items-center justify-center flex-col px-4 sm:px-8 md:px-12">
-      <div className="flex-1 mt-24">
-        <button className="border border-e-blue-700 px-5 py-2 rounded-2xl mx-16 sm:mx-28 md:mx-56">
-          Our plans
-        </button>
-        <h1 className="text-center text-2xl sm:text-3xl mt-6 font-semibold font-serif bg-gradient-to-r from-gray-900 to-gray-600 bg-clip-text text-transparent">
-          Choose the plans that right for you
+    <div className="min-h-screen flex items-center justify-center flex-col px-4 sm:px-8 md:px-12 lg:px-16">
+      <div className="flex-1 mt-16 sm:mt-20 md:mt-24 w-full max-w-7xl">
+        <div className="flex justify-center mb-6">
+          <button className="border border-blue-700 px-4 sm:px-5 py-2 rounded-2xl text-sm sm:text-base">
+            Our plans
+          </button>
+        </div>
+        <h1 className="text-center text-xl sm:text-2xl md:text-3xl mt-4 sm:mt-6 font-semibold font-serif bg-gradient-to-r from-gray-900 to-gray-600 bg-clip-text text-transparent px-4">
+          Choose the plan that's right for you
         </h1>
       </div>
 
-      <div className="flex flex-wrap justify-center sm:justify-start">
-        <div className="card w-full sm:w-80 md:w-96 bg-base-100 shadow-sm mx-2 my-6 sm:mx-5 sm:my-24">
+      <div className="flex flex-wrap justify-center gap-4 sm:gap-6 lg:gap-8 max-w-7xl w-full px-4 sm:px-8">
+        <div className="card w-full sm:w-80 md:w-96 bg-base-100 shadow-sm my-4 sm:my-6">
           <div className="card-body">
             <span className="badge badge-xs badge-warning">most purchased</span>
             <div className="flex justify-between">
@@ -53,7 +55,7 @@ const Buycredit = () => {
           </div>
         </div>
 
-        <div className="card w-full sm:w-80 md:w-96 bg-base-100 shadow-sm mx-2 my-6 sm:mx-5 sm:my-24">
+        <div className="card w-full sm:w-80 md:w-96 bg-base-100 shadow-sm my-4 sm:my-6">
           <div className="card-body">
             <span className="badge badge-xs badge-warning"> Popular</span>
             <div className="flex justify-between">
@@ -92,7 +94,7 @@ const Buycredit = () => {
           </div>
         </div>
 
-        <div className="card w-full sm:w-80 md:w-96 bg-base-100 shadow-sm mx-2 my-6 sm:mx-5 sm:my-24">
+        <div className="card w-full sm:w-80 md:w-96 bg-base-100 shadow-sm my-4 sm:my-6">
           <div className="card-body">
             <span className="badge badge-xs badge-warning">Most Popular</span>
             <div className="flex justify-between">
