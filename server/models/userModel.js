@@ -27,6 +27,7 @@ const userSchema = new mongoose.Schema({
         type: Number,
         default: 10
     }
-})
-const UserModel=mongoose.model('user',userSchema)
+});
+
+const UserModel = mongoose.model('user', userSchema);
 export default UserModel;
