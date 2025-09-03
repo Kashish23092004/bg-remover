@@ -33,6 +33,18 @@ const userSchema = new mongoose.Schema({
     type: Number, 
     default: 10,
     min: 0 // Credits cannot be negative
+  },
+  lastLoginAt: {
+    type: Date,
+    default: null
+  },
+  lastLogoutAt: {
+    type: Date,
+    default: null
+  },
+  loginCount: {
+    type: Number,
+    default: 0
   }
 }, {
   timestamps: true, // Automatically add createdAt and updatedAt fields

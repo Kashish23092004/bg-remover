@@ -10,10 +10,11 @@ const Home = () => {
       <Hero/>
       <Steps/>
       <Image/>
-     <div className='mx-96 flex justify-center mt-6'>
+     <div className='container mx-auto px-4 sm:px-6 lg:px-8 xl:px-96 flex justify-center mt-6'>
       <input type='file' id='upload1' hidden />
-                            <label htmlFor='upload1' className="btn btn-primary px-9 rounded-3xl bg-gradient-to-l from-purple-700 to-pink-600 hover:translate-x-0.5  xs:mx-6 sm:mx-9 ">
-                                <Upload />upload your image
+                            <label htmlFor='upload1' className="btn btn-primary px-4 sm:px-6 md:px-9 rounded-3xl bg-gradient-to-l from-purple-700 to-pink-600 hover:translate-x-0.5 w-full max-w-xs sm:max-w-none sm:w-auto">
+                                <Upload className="w-4 h-4 sm:w-5 sm:h-5" />
+                                <span className="text-sm sm:text-base">upload your image</span>
                             </label>
      </div>
     </div>

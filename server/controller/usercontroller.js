@@ -1,4 +1,5 @@
 import UserModel from "../models/userModel.js";
+import { Webhook } from 'svix';
 
 const clerkwebhooks = async (req, res) => {
   try {
@@ -7,11 +8,38 @@ const clerkwebhooks = async (req, res) => {
     console.log("👉 Raw body:", req.body);
     console.log("👉 Body type:", typeof req.body);
 
-    // ⚠️ Skip Clerk verification during testing
-    console.log("⚠️ Skipping webhook signature verification (testing mode)");
+    // Verify webhook signature
+    const WEBHOOK_SECRET = process.env.CLERK_WEBHOOK_SECRET;
+    if (!WEBHOOK_SECRET) {
+      console.error("❌ CLERK_WEBHOOK_SECRET not configured");
+      return res.status(500).json({ success: false, message: "Webhook secret not configured" });
+    }
+
+    const headers = req.headers;
+    const payload = req.body;
+
+    // Create new Svix instance with secret
+    const wh = new Webhook(WEBHOOK_SECRET);
+
+    let evt;
+    try {
+      // Verify webhook signature
+      evt = wh.verify(payload, headers);
+      console.log("✅ Webhook signature verified successfully");
+    } catch (err) {
+      console.error("❌ Webhook signature verification failed:", err.message);
+      
+      // For development/testing, allow bypass with special header
+      if (process.env.NODE_ENV === 'development' && headers['x-debug-bypass'] === 'true') {
+        console.log("⚠️ Bypassing signature verification for development");
+        evt = req.body;
+      } else {
+        return res.status(400).json({ success: false, message: "Invalid signature" });
+      }
+    }
 
     // Ensure req.body is parsed correctly
-    const { data, type } = req.body || {};
+    const { data, type } = evt || {};
     
     if (!data || !type) {
       console.error("❌ Invalid payload structure:", req.body);
@@ -97,6 +125,49 @@ const clerkwebhooks = async (req, res) => {
         
         console.log("✅ User deleted successfully:", deletedUser._id);
         res.json({ success: true, message: "User deleted", userId: deletedUser._id });
+        break;
+      }
+
+      case "session.created": {
+        console.log("🔐 User logged in:", data.user_id);
+        
+        // Update user's last login time
+        const user = await UserModel.findOneAndUpdate(
+          { clerkId: data.user_id },
+          { 
+            lastLoginAt: new Date(),
+            $inc: { loginCount: 1 }
+          },
+          { new: true }
+        );
+        
+        if (user) {
+          console.log("✅ User login tracked:", user._id);
+        } else {
+          console.log("⚠️ User not found for login tracking:", data.user_id);
+        }
+        
+        res.json({ success: true, message: "Login tracked", sessionId: data.id });
+        break;
+      }
+
+      case "session.ended": {
+        console.log("🔓 User logged out:", data.user_id);
+        
+        // Update user's last logout time
+        const user = await UserModel.findOneAndUpdate(
+          { clerkId: data.user_id },
+          { lastLogoutAt: new Date() },
+          { new: true }
+        );
+        
+        if (user) {
+          console.log("✅ User logout tracked:", user._id);
+        } else {
+          console.log("⚠️ User not found for logout tracking:", data.user_id);
+        }
+        
+        res.json({ success: true, message: "Logout tracked", sessionId: data.id });
         break;
       }
       

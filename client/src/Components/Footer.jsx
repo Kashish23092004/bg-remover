@@ -3,15 +3,15 @@ import React from 'react'
 const Footer = () => {
   return (
     <div>
-        <footer className=" footer footer-horizontal footer-center bg-base-200 text-base-content rounded p-10">
-  <nav className="grid grid-flow-col gap-4">
-    <a className="link link-hover">About us</a>
-    <a className="link link-hover">Contact</a>
-    <a className="link link-hover">Jobs</a>
-    <a className="link link-hover">Press kit</a>
+        <footer className="footer footer-center bg-base-200 text-base-content rounded p-6 sm:p-8 lg:p-10 mt-16 sm:mt-20">
+  <nav className="flex flex-wrap justify-center gap-4 sm:gap-6 mb-4">
+    <a className="link link-hover text-sm sm:text-base">About us</a>
+    <a className="link link-hover text-sm sm:text-base">Contact</a>
+    <a className="link link-hover text-sm sm:text-base">Jobs</a>
+    <a className="link link-hover text-sm sm:text-base">Press kit</a>
   </nav>
-  <nav>
-    <div className="grid grid-flow-col gap-4">
+  <nav className="mb-4">
+    <div className="flex justify-center gap-4 sm:gap-6">
       <a>
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -48,7 +48,7 @@ const Footer = () => {
     </div>
   </nav>
   <aside>
-    <p>Copyright © {new Date().getFullYear()} - All right reserved by ACME Industries Ltd</p>
+    <p className="text-xs sm:text-sm text-center">Copyright © {new Date().getFullYear()} - All rights reserved by Bg-remover</p>
   </aside>
 </footer>
     </div>
