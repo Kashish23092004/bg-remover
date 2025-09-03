@@ -4,8 +4,8 @@ import express from 'express'
 import connectDB from './configs/mongodb.js'
 import userRouter from './Routes/userroutes.js'
 
-const PORT = process.env.PORT || 4000
 const app = express()
+const PORT = process.env.PORT || 4000
 
 // Connect to MongoDB
 connectDB().catch(console.error);
@@ -31,7 +31,7 @@ app.get('/', (req, res) => {
 
 app.use('/api/user', userRouter);
 
-// Vercel serverless function export
+// Export for Vercel serverless
 export default app;
 
 // Local development listener
