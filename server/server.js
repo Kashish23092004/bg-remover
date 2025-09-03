@@ -6,20 +6,37 @@ import userRouter from './Routes/userroutes.js'
 
 const PORT = process.env.PORT || 4000
 const app = express()
-await connectDB();
 
-// Middleware - Webhook routes need raw body, others need JSON
+// Connect to MongoDB
+connectDB().catch(console.error);
+
+// Middleware
 app.use('/api/user/webhooks', express.raw({ type: 'application/json' }));
 app.use(express.json());
 app.use(cors());
 
+// Health check endpoint
+app.get('/health', (req, res) => {
+  res.json({ 
+    status: 'OK', 
+    message: 'Server is running',
+    timestamp: new Date().toISOString()
+  });
+});
+
 // API routes
 app.get('/', (req, res) => {
-    res.send('this api is working')
+    res.send('API is working correctly')
 });
 
 app.use('/api/user', userRouter);
 
-app.listen(PORT, () => {
-    console.log(`server is running on port ${PORT}`)
-});
+// Vercel serverless function export
+export default app;
+
+// Local development listener
+if (process.env.NODE_ENV !== 'production') {
+  app.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}`)
+  });
+}
