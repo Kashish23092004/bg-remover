@@ -7,15 +7,31 @@ import connectDB from "./configs/mongodb.js";
 const app = express();
 const PORT = process.env.PORT || 4000;
 
-// ✅ Connect to MongoDB
+// Connect to MongoDB
 connectDB().catch(console.error);
 
-// ✅ Webhook route (must use raw body)
-app.post("/api/user/webhooks", express.raw({ type: "application/json" }), clerkwebhooks);
-
-// Normal middlewares
-app.use(express.json());
+// Middlewares
 app.use(cors());
+
+// Special handling for webhook route - parse raw body for signature verification
+app.use('/api/user/webhooks', express.raw({ type: 'application/json' }));
+
+// Regular JSON parsing for other routes
+app.use(express.json());
+
+// Webhook route with special body handling
+app.post("/api/user/webhooks", (req, res) => {
+  try {
+    // Parse the raw body for webhooks
+    if (Buffer.isBuffer(req.body)) {
+      req.body = JSON.parse(req.body.toString());
+    }
+    clerkwebhooks(req, res);
+  } catch (error) {
+    console.error("❌ Body parsing error:", error.message);
+    res.status(400).json({ success: false, message: "Invalid JSON body" });
+  }
+});
 
 // Health check
 app.get("/health", (req, res) => {
@@ -26,14 +42,12 @@ app.get("/health", (req, res) => {
   });
 });
 
-// Test route
 app.get("/", (req, res) => {
   res.send("API is working correctly");
 });
 
-// Local dev server
 app.listen(PORT, "0.0.0.0", () => {
   console.log(`🚀 Server running on http://localhost:${PORT}`);
 });
 
-export default app; // For Vercel serverless
+export default app;
